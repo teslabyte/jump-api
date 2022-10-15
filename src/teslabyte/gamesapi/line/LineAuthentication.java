@@ -15,11 +15,8 @@ public class LineAuthentication {
     private static final String mcc = "310";
     private static final String mnc = "410";
     private static final String sdkversion = "2.5.4.56";
-    private String userToken = "";
+    private String userToken;
 
-    public LineAuthentication() {
-
-    }
 
     public LineAuthentication(String userToken) {
         this.userToken = userToken;
@@ -35,8 +32,7 @@ public class LineAuthentication {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.000+0900");
         ZoneId zoneId = ZoneId.of("Asia/Tokyo");
         LocalDateTime nowTokyo = LocalDateTime.now(zoneId);
-        String timestamp = dtf.format(nowTokyo).replace(" ","T");
-        return timestamp;
+        return dtf.format(nowTokyo).replace(" ","T");
     }
 
     public String getRequest(String timestamp) {
@@ -68,7 +64,6 @@ public class LineAuthentication {
         try {
             String line, info = "";
             int responseCode = httpURLConnection.getResponseCode();
-            boolean isError = false;
             BufferedReader reader;
             if (200 <= responseCode && responseCode <= 299) {
                 reader = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
